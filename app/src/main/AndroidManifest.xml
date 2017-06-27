@@ -36,6 +36,11 @@
             android:enabled="true"
             android:exported="true">
         </service>
+
+        <activity android:name=".ui.Main2Activity">
+        </activity>
+        <activity android:name=".ui.Main3Activity">
+        </activity>
     </application>
 
 </manifest>

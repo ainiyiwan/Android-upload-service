@@ -38,7 +38,8 @@ public class MyService extends Service {
         }).start();
 
 
-        return super.onStartCommand(intent, flags, startId);
+//        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     private void Task() {
@@ -58,7 +59,7 @@ public class MyService extends Service {
 //            }
             NBA nba1 = new NBA();
             nba1.setName("史蒂芬库里 " + i);
-            if (i < 50) {
+            if (i < 10) {
                 nbas.add(nba1);
             }
             Log.i(TAG, "已存" + i + "个");
@@ -89,9 +90,9 @@ public class MyService extends Service {
                         BatchResult result = o.get(i);
                         BmobException ex = result.getError();
                         if (ex == null) {
-                            Toast.makeText(MyService.this, "第" + i + "个数据批量添加成功：" + result
-                                    .getCreatedAt() + "," + result.getObjectId() + "," + result
-                                    .getUpdatedAt(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MyService.this, "第" + i + "个数据批量添加成功：" + result
+//                                    .getCreatedAt() + "," + result.getObjectId() + "," + result
+//                                    .getUpdatedAt(), Toast.LENGTH_SHORT).show();
                             Log.i(TAG, "第" + i + "个数据批量添加成功：" + result.getCreatedAt() + "," +
                                     result.getObjectId() + "," + result.getUpdatedAt());
                         } else {

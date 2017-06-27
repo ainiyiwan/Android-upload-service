@@ -36,24 +36,46 @@ public class MainActivity extends AppCompatActivity {
     Button stopService;
     @BindView(R.id.upload_service)
     Button uploadService;
+    @BindView(R.id.next_service)
+    Button nextService;
+
+    private List<BmobObject> nbas;
 
     //上次按下返回键的系统时间
     private long lastBackTime = 0;
     //当前按下返回键的系统时间
     private long currentBackTime = 0;
 
+    private MyThread thread = new MyThread();
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //捕获返回键按下的事件
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //获取当前系统时间的毫秒数
-            currentBackTime = System.currentTimeMillis();
+//            //获取当前系统时间的毫秒数
+//            currentBackTime = System.currentTimeMillis();
+//
+//            if (nbas.size() > 50) {
+//                thread.stop();
+//                upload();
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
+
+//            Intent stopIntent = new Intent(this, MyService.class);
+//            stopService(stopIntent);
+
+
+            MyApp.getInstance().exit();
             //比较上次按下返回键和当前按下返回键的时间差，如果大于2秒，则提示再按一次退出
 //            if (currentBackTime - lastBackTime > 100) {
 //                Toast.makeText(this, "再按一次返回键退出", Toast.LENGTH_SHORT).show();
 //                lastBackTime = currentBackTime;
 //            } else { //如果两次按下的时间差小于2秒，则退出程序
-                MyApp.getInstance().exit();
 //            }
             return true;
         }
@@ -83,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         nba.setStar("史蒂芬库里");
 
 
-        List<BmobObject> nbas = new ArrayList<BmobObject>();
+        nbas = new ArrayList<BmobObject>();
         for (int i = 0; i < 50000; i++) {
             NBA nba1 = new NBA();
             nba1.setName("史蒂芬库里 " + i);
@@ -95,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        upload();
+    }
+
+    private void upload() {
         new BmobBatch().insertBatch(nbas).doBatch(new QueryListListener<BatchResult>() {
 
             @Override
@@ -122,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
+
 
     @OnClick(R.id.start_service)
     public void onStartServiceClicked() {
@@ -140,18 +166,25 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.upload_service)
     public void onViewClicked() {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Task();
-                Log.i(TAG, "click");
-            }
-        }).start();
+        thread.start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG,"onDestroy");
+        Log.i(TAG, "onDestroy");
+    }
+
+    @OnClick(R.id.next_service)
+    public void onNextClicked() {
+        startActivity(new Intent(MainActivity.this,Main2Activity.class));
+    }
+
+    class MyThread extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            Task();
+        }
     }
 }
