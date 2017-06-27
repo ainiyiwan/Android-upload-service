@@ -3,8 +3,10 @@ package com.zhimadai.cctvmall.android_upload_service.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.widget.Button;
 
+import com.zhimadai.cctvmall.android_upload_service.MyApp;
 import com.zhimadai.cctvmall.android_upload_service.R;
 import com.zhimadai.cctvmall.android_upload_service.service.MyIntentService;
 
@@ -24,6 +26,7 @@ public class IntentServiceAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intent_service);
         ButterKnife.bind(this);
+        MyApp.getInstance().addActivity(this);
     }
 
     @OnClick(R.id.start_intent)
@@ -35,20 +38,21 @@ public class IntentServiceAct extends AppCompatActivity {
     @OnClick(R.id.stop_intent)
     public void onStopIntent() {
         Intent stopIntent = new Intent(this, MyIntentService.class);
-        startService(stopIntent);
+        stopService(stopIntent);
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.tv_start:
-//                Intent startIntent = new Intent(getActivity(), MyIntentService.class);
-//                getActivity().startService(startIntent);
-//                break;
-//            case R.id.tv_cancel:
-//                Intent stopIntent = new Intent(getActivity(), MyIntentService.class);
-//                getActivity().stopService(stopIntent);
-//                break;
-//        }
-//    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //捕获返回键按下的事件
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+
+            Intent stopIntent = new Intent(this, MyIntentService.class);
+            stopService(stopIntent);
+
+
+            MyApp.getInstance().exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

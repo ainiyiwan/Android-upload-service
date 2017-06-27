@@ -101,9 +101,14 @@ public class MyService extends Service {
                             Log.i(TAG, "第" + i + "个数据批量添加失败：" + ex.getMessage() + "," + ex
                                     .getErrorCode());
                         }
+//                        if (i == o.size()-1){
+//                            stopSelf();
+//                        }
+                        stopSelf();
                     }
                 } else {
                     Log.i(TAG, "失败：" + e.getMessage() + "," + e.getErrorCode());
+                    stopSelf();
                 }
             }
         });
@@ -126,6 +131,7 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        stopSelf();
         Log.i(TAG, "onDestroy() executed");
     }
 

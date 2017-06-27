@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import com.zhimadai.cctvmall.android_upload_service.MyApp;
 import com.zhimadai.cctvmall.android_upload_service.R;
 import com.zhimadai.cctvmall.android_upload_service.service.MyService;
 
@@ -28,6 +29,7 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         ButterKnife.bind(this);
+        MyApp.getInstance().addActivity(this);
     }
 
     @OnClick(R.id.start_service)

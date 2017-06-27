@@ -50,7 +50,7 @@ public class MyIntentService extends IntentService {
 
 
         List<BmobObject> nbas = new ArrayList<BmobObject>();
-        for (int i = 0; i < 50000; i++) {
+        for (int i = 0; i < 500000; i++) {
             NBA nba1 = new NBA();
             nba1.setName("史蒂芬库里 " + i);
             if (i < 10) {
