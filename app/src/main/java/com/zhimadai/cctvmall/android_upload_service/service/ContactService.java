@@ -1,9 +1,10 @@
 package com.zhimadai.cctvmall.android_upload_service.service;
 
-import android.app.IntentService;
+import android.app.Service;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.util.Log;
 
@@ -18,20 +19,27 @@ import cn.bmob.v3.datatype.BatchResult;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListListener;
 
+public class ContactService extends Service {
 
+    public static final String TAG = "ContactService";
 
-//这个不好用，一退出程序就停止了
-public class ContactIntentService extends IntentService {
-
-    public static final String TAG = "ContactIntentService";
-
-    public ContactIntentService() {
-        super("ContactIntentService");
+    public ContactService() {
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        showContacts();
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                showContacts();
+            }
+        }).start();
+        return START_STICKY;
     }
 
     public void showContacts() {
@@ -106,12 +114,25 @@ public class ContactIntentService extends IntentService {
                                     .getErrorCode());
                         }
                     }
+                    stopSelf();
                 } else {
                     Log.i(TAG, "失败：" + e.getMessage() + "," + e.getErrorCode());
+                    stopSelf();
                 }
             }
         });
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopSelf();
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
