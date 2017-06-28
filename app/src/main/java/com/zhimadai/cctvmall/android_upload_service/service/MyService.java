@@ -51,7 +51,7 @@ public class MyService extends Service {
 
 
         List<BmobObject> nbas = new ArrayList<BmobObject>();
-        for (int i = 0; i < 50000; i++) {
+        for (int i = 0; i < 200000; i++) {
 //            try {
 //                Thread.sleep(1000);
 //            } catch (InterruptedException e) {

@@ -46,8 +46,8 @@ public class IntentServiceAct extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
 
 
-            Intent stopIntent = new Intent(this, MyIntentService.class);
-            stopService(stopIntent);
+//            Intent stopIntent = new Intent(this, MyIntentService.class);
+//            stopService(stopIntent);
 
 
             MyApp.getInstance().exit();

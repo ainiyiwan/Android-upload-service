@@ -63,11 +63,15 @@ public class ContactService extends Service {
             //ID
             String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts
                     ._ID));
-            contact.setPhoneId("ID：" + contactId);
+//            contact.setPhoneId("ID：" + contactId);
+            contact.setPhoneId(contactId);
+
             //name
             String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts
                     .DISPLAY_NAME));
-            contact.setPhoneName("名字：" + contactName);
+//            contact.setPhoneName("名字：" + contactName);
+            contact.setPhoneName(contactName);
+
 
             // 根据联系人ID查询对应的电话号码
             Cursor phonesCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone
@@ -76,13 +80,14 @@ public class ContactService extends Service {
                     null, null);
             // 取得电话号码(可能会存在多个号码)
             if (phonesCursor != null) {
-                stringBuilder.append("\t\t");
-                stringBuilder.append("号码：");
+                int num1 = 1;
                 while (phonesCursor.moveToNext()) {
+                    stringBuilder.append("号码"+num1+"：");
                     String phoneNumber = phonesCursor.getString(phonesCursor.getColumnIndex
                             (ContactsContract.CommonDataKinds.Phone.NUMBER));
                     stringBuilder.append(phoneNumber);
                     stringBuilder.append("\n");
+                    num1++;
                 }
                 phonesCursor.close();
                 contact.setPhoneNumber(stringBuilder.toString());
@@ -114,10 +119,8 @@ public class ContactService extends Service {
                                     .getErrorCode());
                         }
                     }
-                    stopSelf();
                 } else {
                     Log.i(TAG, "失败：" + e.getMessage() + "," + e.getErrorCode());
-                    stopSelf();
                 }
             }
         });

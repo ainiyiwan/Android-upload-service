@@ -25,6 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity">
+
         </activity>
 
         <service
@@ -44,11 +45,7 @@
         </service>
 
         <activity android:name=".ui.IntentServiceAct">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <service
@@ -57,6 +54,7 @@
         </service>
 
         <activity android:name=".ui.UploadContactAct">
+
         </activity>
 
         <service
@@ -65,6 +63,11 @@
         </service>
 
         <activity android:name=".ui.ContactServiceAct">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

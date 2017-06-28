@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -86,19 +85,13 @@ public class UploadContactAct extends AppCompatActivity {
         stopService(intent);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //捕获返回键按下的事件
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-
-//            Intent stopIntent = new Intent(this, ContactIntentService.class);
-//            stopService(stopIntent);
-
-
-            MyApp.getInstance().exit();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        //捕获返回键按下的事件
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            MyApp.getInstance().exit();
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 }
